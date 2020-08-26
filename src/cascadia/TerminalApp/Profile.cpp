@@ -64,7 +64,7 @@ Profile::Profile() :
 {
 }
 
-Profile::Profile(IReference<guid> guid) :
+Profile::Profile(const IReference<guid>& guid) :
     _Guid(guid ? static_cast<decltype(_Guid)>(guid.Value()) : std::nullopt)
 {
     /* FontWeight is initialized here because the structure won't accept a uint16_t directly */
@@ -502,7 +502,7 @@ winrt::guid Profile::GetGuidOrGenerateForJson(const Json::Value& json) noexcept
     return Profile::_GenerateGuidForProfile(name, source);
 }
 
-HorizontalAlignment Profile::BackgroundImageHorizontalAlignment() const noexcept
+const HorizontalAlignment Profile::BackgroundImageHorizontalAlignment() const noexcept
 {
     if (_BackgroundImageAlignment.has_value())
     {
@@ -520,7 +520,7 @@ void Profile::BackgroundImageHorizontalAlignment(const HorizontalAlignment& valu
     std::get<HorizontalAlignment>(_BackgroundImageAlignment.value()) = value;
 }
 
-VerticalAlignment Profile::BackgroundImageVerticalAlignment() const noexcept
+const VerticalAlignment Profile::BackgroundImageVerticalAlignment() const noexcept
 {
     if (_BackgroundImageAlignment.has_value())
     {
@@ -538,34 +538,34 @@ void Profile::BackgroundImageVerticalAlignment(const VerticalAlignment& value) n
     std::get<VerticalAlignment>(_BackgroundImageAlignment.value()) = value;
 }
 
-bool Profile::HasGuid() const
+bool Profile::HasGuid() const noexcept
 {
     return _Guid.has_value();
 }
 
-winrt::guid Profile::Guid() const
+winrt::guid Profile::Guid() const noexcept
 {
     // This can throw if we never had our guid set to a legitimate value.
     THROW_HR_IF_MSG(E_FAIL, !_Guid.has_value(), "Profile._guid always expected to have a value");
     return *_Guid;
 }
 
-void Profile::Guid(winrt::guid guid)
+void Profile::Guid(const winrt::guid& guid) noexcept
 {
     _Guid = guid;
 }
 
-bool Profile::HasConnectionType() const
+bool Profile::HasConnectionType() const noexcept
 {
     return _ConnectionType.has_value();
 }
 
-winrt::guid Profile::ConnectionType() const
+winrt::guid Profile::ConnectionType() const noexcept
 {
     return *_ConnectionType;
 }
 
-void Profile::ConnectionType(winrt::guid conType)
+void Profile::ConnectionType(const winrt::guid& conType) noexcept
 {
     _ConnectionType = conType;
 }

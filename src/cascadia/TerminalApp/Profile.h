@@ -44,7 +44,7 @@ namespace winrt::TerminalApp::implementation
     {
     public:
         Profile();
-        Profile(Windows::Foundation::IReference<guid> guid);
+        Profile(const Windows::Foundation::IReference<guid>& guid);
 
         ~Profile();
 
@@ -61,18 +61,18 @@ namespace winrt::TerminalApp::implementation
         void GenerateGuidIfNecessary() noexcept;
         static guid GetGuidOrGenerateForJson(const Json::Value& json) noexcept;
 
-        bool HasGuid() const;
-        winrt::guid Guid() const;
-        void Guid(winrt::guid guid);
+        bool HasGuid() const noexcept;
+        winrt::guid Guid() const noexcept;
+        void Guid(const winrt::guid& guid) noexcept;
 
-        bool HasConnectionType() const;
-        winrt::guid ConnectionType() const;
-        void ConnectionType(winrt::guid conType);
+        bool HasConnectionType() const noexcept;
+        winrt::guid ConnectionType() const noexcept;
+        void ConnectionType(const winrt::guid& conType) noexcept;
 
         // BackgroundImageAlignment is 1 setting saved as 2 separate values
-        Windows::UI::Xaml::HorizontalAlignment BackgroundImageHorizontalAlignment() const noexcept;
+        const Windows::UI::Xaml::HorizontalAlignment BackgroundImageHorizontalAlignment() const noexcept;
         void BackgroundImageHorizontalAlignment(const Windows::UI::Xaml::HorizontalAlignment& value) noexcept;
-        Windows::UI::Xaml::VerticalAlignment BackgroundImageVerticalAlignment() const noexcept;
+        const Windows::UI::Xaml::VerticalAlignment BackgroundImageVerticalAlignment() const noexcept;
         void BackgroundImageVerticalAlignment(const Windows::UI::Xaml::VerticalAlignment& value) noexcept;
 
         GETSET_PROPERTY(hstring, Name, L"Default");
